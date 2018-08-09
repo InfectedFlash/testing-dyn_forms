@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} APP1{% endblock %}
+{% block content %}
+
+    <div class="main" style="width: 200px">
+        <form action="{% url 'index'  %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="input_row">
+{#                    <label for="{{ field.id }}">{{ field.label }}: </label>#}
+{#                    <input type="{{ field.type }}", placeholder="{{ field.label }}" id="{{ field.id }}" value="">#}
+                {{ form.as_p }}
+
+            {% endfor %}
+            </div>
+        <div id="submit_div">
+            <input type="submit" value="Submit"  id="sbt">
+        </div>
+        </form>
+
+        {% for i,a  in text.items%}
+            <span>{{ i }}- {{ a }}</span><br>
+        {% endfor %}
+    </div>
+    <button id="add_button" onclick="asd()">ADD</button><br>
+    <script type="text/javascript">
+        var counter = 0;
+      var asd = function () {
+              counter ++;
+              var newRow = $('.input_row').clone();
+              var newInput = $('#id_text').clone();
+              var newLabel = $('label').first().clone();
+              newLabel.attr('for', "id_text_" + counter.toString());
+              newLabel.text('Text ' + counter.toString());
+              newInput.attr('id', "id_text_" + counter.toString());
+              newInput.attr('name', "text_" + counter.toString());
+              newInput.attr('value', " ");
+              newLabel.insertBefore("#submit_div");
+              newInput.insertBefore("#submit_div");
+
+        };
+    </script>
+{% endblock %}
+
